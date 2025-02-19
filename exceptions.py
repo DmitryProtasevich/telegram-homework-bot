@@ -1,22 +1,10 @@
 class MissingEnvironmentVariableError(Exception):
     """Ошибка: отсутствует обязательная переменная окружения."""
 
-    pass
+
+class EmptyResponseFromAPI(Exception):
+    """Ошибка: пустой ответ API."""
 
 
-class RequestFailedError(Exception):
-    """Ошибка: запрос не был выполнен."""
-
-    pass
-
-
-class UnexpectedAPIStatusError(Exception):
-    """Ошибка: запрос к API завершился с неожиданным статусом."""
-
-    pass
-
-
-class InvalidJSONResponseError(Exception):
-    """Ошибка: ответ API не является JSON."""
-
-    pass
+class InvalidResponseCode(Exception):
+    """Не верный код ответа."""
