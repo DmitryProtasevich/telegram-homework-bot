@@ -59,13 +59,13 @@ def get_api_answer(timestamp):
         'headers': HEADERS,
         'params': {'from_date': timestamp}
     }
+    logging.info(
+        'Начат запрос к API. url - {url},'
+        'Заголовки - {headers},'
+        'Параметры - {params}'.format(**api_request_params))
     try:
-        logging.info(
-            'Начат запрос к API. url - {url},'
-            'Заголовки - {headers},'
-            'Параметры - {params}'.format(**api_request_params))
         statuses_homework = requests.get(**api_request_params)
-    except Exception:
+    except requests.exceptions.RequestException:
         raise ConnectionError(
             'Не верный код ответа: url - {url},'
             'headers - {headers},'
@@ -132,7 +132,6 @@ def main():
     bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
     timestamp = int(time.time())
     last_message = ''
-    last_error_message = ''
     while True:
         try:
             response = get_api_answer(timestamp)
@@ -145,16 +144,15 @@ def main():
             homework = homeworks[0]
             message = parse_status(homework)
             logging.debug(f'Текущий статус: {message}')
-            if message != last_message:
-                if send_message(bot, message):
-                    last_message = message
-            timestamp = response.get('current_date', timestamp)
+            if message != last_message and send_message(bot, message):
+                last_message = message
+                timestamp = response.get('current_date', timestamp)
         except Exception as error:
+            logging.exception('Сбой в работе программы')
             error_message = f'Сбой в работе программы: {error}'
-            logging.error(error_message)
-            if error_message != last_error_message:
-                if send_message(bot, error_message):
-                    last_error_message = error_message
+            if (error_message != last_message
+                    and send_message(bot, error_message)):
+                last_message = error_message
         finally:
             time.sleep(RETRY_PERIOD)
 
