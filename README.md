@@ -100,7 +100,7 @@ Copy
   "current_date": 1696865685
 }
 ```
-### АВТОР
-Дмитрий Протасевич
-GitHub: https://github.com/DmitryProtasevich
+### АВТОР  
+Дмитрий Протасевич  
+GitHub: https://github.com/DmitryProtasevich  
 Telegram: https://t.me/DmitryProtasevich
