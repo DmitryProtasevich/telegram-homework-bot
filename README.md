@@ -56,8 +56,8 @@ logging — для логирования работы программы.
 Клонировать репозиторий:
 
 ```bash
-git clone https://github.com/ваш_username/homework_bot.git
-cd homework_bot
+git clone https://github.com/ваш_username/telegram-homework-bot.git
+cd telegram-homework-bot
 ```
 Создать и активировать виртуальное окружение:
 ```bash
